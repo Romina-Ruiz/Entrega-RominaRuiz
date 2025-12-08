@@ -13,19 +13,20 @@ const Carrito = () => {
 
   if (carrito.length === 0) {
     return (
-      <Container className="mt-4">
-        <h3>Tu carrito está vacío</h3>
+      <Container className="mt-6">
+        <h3 className="titulos-paginas text-center mt-6">Tu carrito está vacío</h3>
       </Container>
     );
   }
 
   return (
     <Container className="mt-4">
-      <h3>Carrito de compras</h3>
+      <h3 className="titulos-paginas text-center mt-4">Carrito de compras</h3>
       <Table striped bordered hover responsive className="mt-3">
         <thead>
           <tr>
             <th>Producto</th>
+            <th>Imagen</th>
             <th>Precio unitario</th>
             <th>Cantidad</th>
             <th>Total</th>
@@ -36,6 +37,17 @@ const Carrito = () => {
           {carrito.map((item) => (
             <tr key={item.id}>
               <td>{item.title}</td>
+              <td>{item.images?.startsWith("http") ? (
+                  <img
+                    src={item.images}
+                    alt={item.title}
+                    width={50}
+                    height={50}
+                    style={{ objectFit: "cover" }}
+                  />
+                ) : (
+                  <span>{item.images}</span>
+                )}</td>
               <td>${Number(item.price).toFixed(2)}</td>
               <td>{item.cantidad}</td>
               <td>${(Number(item.price) * item.cantidad).toFixed(2)}</td>
@@ -52,7 +64,7 @@ const Carrito = () => {
           ))}
         </tbody>
       </Table>
-      <h5 className="text-end">Total a pagar: ${total.toFixed(2)}</h5>
+      <h5 className="titulos-paginas text-end mt-3">Total a pagar: ${total.toFixed(2)}</h5>
     </Container>
   );
 };

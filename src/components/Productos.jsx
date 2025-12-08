@@ -1,39 +1,43 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Row, Col} from 'react-bootstrap';
-import ProductCard from './Producto';
+import ProductCard from './ProductCard';
 import Spinner from 'react-bootstrap/Spinner';
+import {CartContext} from './CartContext';
 
 const ProductList = ({ category = null }) => 
     {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const {agregarAlCarrito}= useContext(CartContext);
 
     useEffect(() => 
     {
-    let url ='https://dummyjson.com/products';
+    let url =`https://69364bfbf8dc350aff30623b.mockapi.io/Productos`;
     if (category) 
     {
       url = `https://dummyjson.com/products/category/${category}`;
     }
-
-      fetch(url)
+    fetch(url)
       .then((response) => response.json())
       .then((data) => {
-        setProducts(data.products);
-        setLoading(false);
-      })
+        if (Array.isArray(data.products)) {
+          setProducts(data.products);
+        } else if (Array.isArray(data)) {
+          setProducts(data);
+        } else {
+          console.error("Formato desconocido:", data);
+          setProducts([]);
+        }
+
+      setLoading(false);
+    })
       .catch((error) => {
         console.error('Error fetching data:', error);
         setLoading(false);
       });
   }, [category]);
 
-    const handleAgregarAlCarrito = (product) => {
-    alert(`Producto ${product.title} agregado al carrito`);
-  };
-
-
-  if (loading) {
+   if (loading) {
     return <div className='mt-4 fs-2 text-center fst-italic fw-bold'>
       <Spinner animation="grow" variant="danger" size="sm" className='m-2' />
       Loading...
@@ -50,21 +54,14 @@ const ProductList = ({ category = null }) =>
         )}
       <Row >
 
-        <Col md={2}>
-
-          <p><a className="links ms-2" href="/Belleza">Belleza</a></p>
-          <p><a className="links ms-2" href="/Fragancias">Frangancias</a></p>
-          <p><a className="links ms-2" href="/Muebles">Muebles</a></p>
           
-        </Col >
-          
-        <Col md={10}>
+        <Col>
 
           <Row className='mt-6'>  
       
             {products.map((product) => (
               <Col key={product.id} className="mb-4">
-                <ProductCard product={product} agregarAlCarrito={handleAgregarAlCarrito} />
+                <ProductCard product={product} agregarAlCarrito={agregarAlCarrito} />
               </Col>
 
             ))}
