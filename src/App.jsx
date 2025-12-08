@@ -11,6 +11,9 @@ import Belleza from './components/Belleza';
 import Fragancias from './components/Fragancias';
 import Muebles from './components/Muebles';
 import RutaProtegida from './components/RutaProtegida';
+import { CartProvider } from "./components/CartContext";
+import Login from './components/Login';
+import Crudproduct from './components/CrudProduct';
 
 
 
@@ -19,7 +22,7 @@ function App() {
 
   return (
 
-     
+     <CartProvider>
       <Router>
         <Header />
           <Routes>
@@ -31,10 +34,13 @@ function App() {
             <Route path="/Belleza" element={<Belleza/>} />
             <Route path="/Muebles" element={<Muebles />} />
             <Route path="/Fragancias" element={<Fragancias />} />
+            <Route path="/Crud" element={<Crudproduct />} />
+            <Route path="/Login" element={<Login />} />
                      
       </Routes>
         <Footer/>
     </Router>
+    </CartProvider>
 
 
       
