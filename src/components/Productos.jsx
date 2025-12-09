@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Row, Col} from 'react-bootstrap';
+import { Row, Col, Form} from 'react-bootstrap';
 import ProductCard from './ProductCard';
 import Spinner from 'react-bootstrap/Spinner';
 import {CartContext} from './CartContext';
@@ -9,6 +9,7 @@ const ProductList = ({ category = null }) =>
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const {agregarAlCarrito}= useContext(CartContext);
+  const [barraDeBusqueda, setBarraDeBusqueda] = useState("");
 
     useEffect(() => 
     {
@@ -44,14 +45,33 @@ const ProductList = ({ category = null }) =>
       </div>;
   }  
 
-  
+  const filteredProducts=products.filter(product=>
+      product.title.toLowerCase().includes(barraDeBusqueda.toLowerCase()) ||
+      product.description.toLowerCase().includes(barraDeBusqueda.toLowerCase())
+    );
+
+
   return (
+
+ <>
+
 
 
     <div className="container" expand="lg">
       {!category && (
             <h1 className="titulos-paginas text-center mt-4" expand="lg">Nuestros Productos</h1>
         )}
+
+      <Row className="col-4 position-relative top-0 start-50 translate-middle-x " >
+        <Form.Control
+          type="text"
+          placeholder="Buscar Producto"
+          className="mb-4"
+          value={barraDeBusqueda}
+          onChange={(e) =>setBarraDeBusqueda(e.target.value)}>
+        
+        </Form.Control>
+      </Row>  
       <Row >
 
           
@@ -59,9 +79,10 @@ const ProductList = ({ category = null }) =>
 
           <Row className='mt-6'>  
       
-            {products.map((product) => (
-              <Col key={product.id} className="mb-4">
-                <ProductCard product={product} agregarAlCarrito={agregarAlCarrito} />
+            {filteredProducts.map((product) => (
+              <Col md={4} key={product.id} className="mb-4">
+              <ProductCard product={product} agregarAlCarrito={agregarAlCarrito} />
+
               </Col>
 
             ))}
@@ -71,6 +92,8 @@ const ProductList = ({ category = null }) =>
       </Row>
 
     </div>
+
+  </>
   );
 }
 
