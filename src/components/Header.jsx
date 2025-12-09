@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import 'font-awesome/css/font-awesome.min.css'; 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
+import Budge from './Budge';
 
 
 export default function Header() 
@@ -59,7 +60,8 @@ export default function Header()
           </Col>
           <Col  md={1}>
               <Link to="/Carrito" className="icono-carrito mt-3 ms-5">
-                  <FontAwesomeIcon icon={faShoppingCart} size="lg" />
+                 
+                  <Budge />
                </Link>       
           </Col>
 

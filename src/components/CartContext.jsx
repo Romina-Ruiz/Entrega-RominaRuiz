@@ -1,4 +1,5 @@
 import React, { createContext, useState } from 'react';
+import { mostrarToast } from './BotonToast'
 
 // Crear el contexto
 export const CartContext = createContext();
@@ -9,18 +10,32 @@ export const CartProvider = ({ children }) => {
 
   // Agregar producto al carrito
   const agregarAlCarrito = (producto) => {
-    setCarrito((prevCarrito) => {
-      const existe = prevCarrito.find(item => item.id === producto.id);
-      if (existe) {
-        // Si ya existe, aumentar la cantidad
-        return prevCarrito.map(item =>
-          item.id === producto.id ? { ...item, cantidad: item.cantidad + 1 } : item
-        );
-      }
-      // Si no existe, agregarlo con cantidad 1
-      return [...prevCarrito, { ...producto, cantidad: 1 }];
-    });
-  };
+  // 1. Preparamos variables por defecto para el Toast (para nuevo producto)
+  let tipoToast = 'success';
+  let mensajeToast = `¡${producto.title} agregado al carrito!`;
+  
+  // 2. Ejecutamos la función de actualización de estado
+  setCarrito((prevCarrito) => {
+    const existe = prevCarrito.find(item => item.id === producto.id);
+
+    if (existe) {
+      // Si ya existe, cambiamos el mensaje para el caso de actualización
+      tipoToast = 'info'; 
+      mensajeToast = `¡Cantidad de ${producto.title} actualizada!`; 
+
+      return prevCarrito.map(item =>
+        item.id === producto.id ? { ...item, cantidad: item.cantidad + 1 } : item
+      );
+    } 
+    
+    // Si no existe, usamos los valores iniciales de tipoToast/mensajeToast
+
+    return [...prevCarrito, { ...producto, cantidad: 1 }];
+  });
+  
+    // 3. LLAMADA AL TOAST: 
+    mostrarToast(mensajeToast, tipoToast);
+};
 
   // Eliminar producto por ID
   const eliminarDelCarrito = (id) => {
@@ -32,6 +47,12 @@ export const CartProvider = ({ children }) => {
     setCarrito([]);
   };
 
+  // Contador de items
+  const totalArticulos = carrito.reduce((acumulador, producto) => {
+    // Suma la cantidad de cada producto al acumulador
+    return acumulador + producto.cantidad;
+  }, 0); // El 0 es el valor inicial del acumulador
+
   return (
     <CartContext.Provider
       value={{
@@ -39,7 +60,8 @@ export const CartProvider = ({ children }) => {
         setCarrito,
         agregarAlCarrito,
         eliminarDelCarrito,
-        vaciarCarrito
+        vaciarCarrito,
+        totalArticulos
       }}
     >
       {children}

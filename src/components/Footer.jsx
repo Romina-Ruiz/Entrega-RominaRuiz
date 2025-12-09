@@ -22,7 +22,7 @@ const Footer = () => {
             </div>
           </Col>
           <Col md={12} className='mt-4'>
-            <p className="mb-0 fs-6">Creado por Talento Tech</p>
+            <p className="mb-0 fs-6">Creado por Romina Ruiz</p>
             <p className="mb-0 text-center fs-6"> Copyright ohmhaus 2025. Todos los derechos reservados.</p>
           </Col>
 

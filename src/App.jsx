@@ -7,15 +7,12 @@ import Productos from './components/Productos';
 import Sale from './components/Sale';
 import Carrito from './components/Carrito';
 import Home from './components/Home';
-import Belleza from './components/Belleza';
-import Fragancias from './components/Fragancias';
-import Muebles from './components/Muebles';
 import RutaProtegida from './components/RutaProtegida';
 import { CartProvider } from "./components/CartContext";
 import Login from './components/Login';
 import Crudproduct from './components/CrudProduct';
 
-
+import { ToastContainer } from 'react-toastify';
 
 function App() {
   
@@ -31,15 +28,13 @@ function App() {
             <Route path="/Sale" element={<Sale />} />
             <Route path="/Contacto" element={<Contacto />} />
             <Route path="/Carrito" element={<Carrito />} />
-            <Route path="/Belleza" element={<Belleza/>} />
-            <Route path="/Muebles" element={<Muebles />} />
-            <Route path="/Fragancias" element={<Fragancias />} />
             <Route path="/Crud" element={<Crudproduct />} />
             <Route path="/Login" element={<Login />} />
-                     
+                    
       </Routes>
         <Footer/>
     </Router>
+          <ToastContainer position="top-right" autoClose={2000} />  
     </CartProvider>
 
 

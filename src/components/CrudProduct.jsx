@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Table, Button, Form, Modal } from "react-bootstrap";
 
-const API_URL = "https://68489b9bec44b9f349416b0e.mockapi.io/api/productos";
+const API_URL = "https://69364bfbf8dc350aff30623b.mockapi.io/Productos";
 
 const CrudProductos = () => {
   const [productos, setProductos] = useState([]);
@@ -11,7 +11,7 @@ const CrudProductos = () => {
     description: "",
     price: "",
     stock: "",
-    image: "",
+    images: "",
   });
   const [editId, setEditId] = useState(null);
 
@@ -27,7 +27,7 @@ const CrudProductos = () => {
   // cierro el modal
   const handleClose = () => {
     setShow(false);
-    setForm({ title: "", description: "", price: "", stock: "", image: "" });
+    setForm({ title: "", description: "", price: "", stock: "", images: "" });
     setEditId(null);
   };
 
@@ -92,7 +92,7 @@ const CrudProductos = () => {
 
   return (
     <div className="container mt-4">
-      <h2>CRUD de Productos</h2>
+      <h2 className=" titulos-paginas text-center mt-4">Administrar Productos</h2>
       <Button className="mb-3" onClick={() => handleShow()}>
         Agregar Producto
       </Button>
@@ -116,16 +116,16 @@ const CrudProductos = () => {
               <td>${Number(prod.price).toFixed(2)}</td>
               <td>{prod.stock}</td>
               <td>
-                {prod.image?.startsWith("http") ? (
+                {prod.images?.startsWith("http") ? (
                   <img
-                    src={prod.image}
+                    src={prod.images}
                     alt={prod.title}
                     width={50}
                     height={50}
                     style={{ objectFit: "cover" }}
                   />
                 ) : (
-                  <span>{prod.image}</span>
+                  <span>{prod.images}</span>
                 )}
               </td>
               <td>
@@ -203,8 +203,8 @@ const CrudProductos = () => {
             <Form.Group className="mb-2">
               <Form.Label>Imagen (URL)</Form.Label>
               <Form.Control
-                value={form.image}
-                onChange={(e) => setForm({ ...form, image: e.target.value })}
+                value={form.images}
+                onChange={(e) => setForm({ ...form, images: e.target.value })}
                 required
               />
             </Form.Group>

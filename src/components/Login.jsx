@@ -22,7 +22,8 @@ const Login = () => {
         <Col md={6} lg={4}>
           <Card className="shadow-lg p-4">
             <Card.Body>
-              <h2 className="text-center mb-4">Iniciar Sesión</h2>
+              <h2 className="text-center mb-4">Administrador</h2>
+              <h5 className="text-center mb-4">(user: admin pass:1234)</h5>
               <Form onSubmit={handleSubmit}>
                 <Form.Group className="mb-3">
                   <Form.Label>Usuario</Form.Label>

@@ -1,13 +1,14 @@
 import React from 'react';
 import { Card, Button, Container,Row } from 'react-bootstrap';
-import Image from 'react-bootstrap/Image'
+
 
 import "../styles/paginas.css"
 import "animate.css/animate.min.css"
 
-const Producto = ({ product, agregarAlCarrito }) => {
-  return (
 
+const ProductCard = ({ product, agregarAlCarrito }) => {
+  
+  return (
 
     <div>
 
@@ -29,6 +30,7 @@ const Producto = ({ product, agregarAlCarrito }) => {
           <Button className='card-button fw-bolder align-items-center' onClick={() => agregarAlCarrito(product)}>
             Agregar al carrito
           </Button>
+          
         </Card.Body>
       </Card>
     </div>
@@ -37,4 +39,4 @@ const Producto = ({ product, agregarAlCarrito }) => {
   );
 };
 
-export default Producto;
+export default ProductCard;

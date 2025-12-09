@@ -183,3 +183,19 @@
      
    
 }
+.BadgeCarrito{
+    position: absolute;
+    top: -12 px;
+    right: -12 px;
+    padding: 3px 7px;
+    border-radius: 50%;
+    background: red;
+    color: white;
+    font-size: 0.85rem;
+    font-weight: bold;
+
+    /* Asegurar que se muestre como círculo */
+    line-height: 1;       /* Ayuda a centrar el texto verticalmente */
+    text-align: center;
+
+}
